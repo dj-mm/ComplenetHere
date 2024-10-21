@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/png" href="CH.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComplementHere</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: white;
+            position: relative;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: #ff416c;
+            animation: progress 2s ease-in-out forwards;
+        }
+
+        @keyframes progress {
+            0% {
+                width: 0;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            transition: transform 0.3s ease;
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            margin-bottom: 25px;
+            font-weight: bold;
+            font-size: 36px;
+            letter-spacing: 2px;
+            color: #ff4081;
+            animation: fadeInDown 1s ease-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="number"] {
+            width: 90%;
+            padding: 14px;
+            border: none;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            font-size: 18px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"]::placeholder {
+            color: #aaa;
+            font-style: italic;
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"]:focus::placeholder {
+            color: transparent;
+        }
+
+        input[type="number"]:focus {
+            box-shadow: 0 0 15px rgba(255, 65, 133, 0.7);
+        }
+
+        .options {
+            margin-bottom: 25px;
+            text-align: left;
+            width: 90%;
+            margin: 0 auto 25px auto;
+        }
+
+        .options input {
+            margin-right: 12px;
+            transform: scale(1.3);
+            accent-color: #ff4081;
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 20px;
+            color: #fff176;
+            letter-spacing: 1px;
+        }
+
+        button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            background-color: #ff4081;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 20px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #ff6090;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .result-box {
+            margin-top: 25px;
+            padding: 25px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+        }
+
+        .result {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 12px 0;
+            color: #fff;
+        }
+
+        .emoji {
+            font-size: 50px;
+            transition: transform 0.4s ease;
+            display: inline-block;
+            animation: bounce 1s infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .emoji.spin {
+            animation: spin 2s infinite linear;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        footer {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+            text-align: center;
+        }
+
+        footer a {
+            text-decoration: none;
+            color: #ff4081;
+            font-weight: bold;
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            input[type="number"] {
+                font-size: 16px;
+            }
+
+            label {
+                font-size: 18px;
+            }
+
+            button {
+                font-size: 18px;
+                padding: 12px 24px;
+            }
+
+            .emoji {
+                font-size: 40px;
+            }
+
+            .result {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="progress-bar"></div>
+    <div class="emoji" id="emojiBox">🙂</div>
+    <div class="container">
+        <h1>🌟 ComplementHere 🌟</h1>
+        <input type="number" id="inputNumber" placeholder="Enter your number here" required>
+        <div class="options">
+            <input type="checkbox" id="onesComplement">
+            <label for="onesComplement">1's Complement</label><br>
+            <input type="checkbox" id="twosComplement">
+            <label for="twosComplement">2's Complement</label>
+        </div>
+        <button onclick="calculate()">Show Result</button>
+        <div class="result-box" id="resultBox" style="display:none;">
+            <div class="result" id="binaryResult"></div>
+            <div class="result" id="onesComplementResult"></div>
+            <div class="result" id="twosComplementResult"></div>
+        </div>
+    </div>
+    <footer>
+        <p>Developed with ❤️ by <b><a href="https://linktr.ee/manash.djmm" target="_blank">Manash</a></b> |ComplementHere|</p>
+    </footer>
+
+    <script>
+        function calculate() {
+            let number = document.getElementById('inputNumber').value;
+            let binaryResult = document.getElementById('binaryResult');
+            let onesComplementResult = document.getElementById('onesComplementResult');
+            let twosComplementResult = document.getElementById('twosComplementResult');
+            let emojiBox = document.getElementById('emojiBox');
+
+            // Validate if the input is a valid number
+            if (!number || isNaN(number)) {
+                alert("Please enter a valid number!");
+                return;
+            }
+
+            // Convert the number to binary
+            let binary = (parseInt(number) >>> 0).toString(2);
+            binaryResult.innerHTML = "Binary: " + binary;
+
+            // Display results box
+            document.getElementById('resultBox').style.display = 'block';
+
+            // Reset emoji to normal
+            emojiBox.innerHTML = "🙂";
+            emojiBox.classList.remove('spin');
+
+            // Check for 1's complement
+            if (document.getElementById('onesComplement').checked) {
+                let onesComplement = binary.split('').map(bit => bit === '0' ? '1' : '0').join('');
+                onesComplementResult.innerHTML = "1's Complement: " + onesComplement;
+                emojiBox.innerHTML = "👍";
+                emojiBox.classList.add('spin'); // Adding spin animation when 1's complement is selected
+            } else {
+                onesComplementResult.innerHTML = "";
+            }
+
+            // Check for 2's complement
+            if (document.getElementById('twosComplement').checked) {
+                let onesComplement = binary.split('').map(bit => bit === '0' ? '1' : '0').join('');
+                let twosComplement = (parseInt(onesComplement, 2) + 1).toString(2);
+                twosComplementResult.innerHTML = "2's Complement: " + twosComplement;
+                emojiBox.innerHTML = "🔥";
+                emojiBox.classList.add('spin');
+            } else {
+                twosComplementResult.innerHTML = "";
+            }
+        }
+    </script>
+</body>
+
+</html>
